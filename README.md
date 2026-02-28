@@ -1,6 +1,6 @@
-# Windows
+# Window Switcher
 
-A lightweight window manager for macOS. Not a tiling manager — it lets you snap any window to a precise position on screen using keyboard shortcuts, without forcing a tiling layout on all your windows.
+A lightweight window manager for macOS. Snap any window to a precise position on screen using keyboard shortcuts — without forcing a tiling layout on everything.
 
 <img src="assets/screenshot.png" width="320"/>
 
@@ -8,17 +8,36 @@ A lightweight window manager for macOS. Not a tiling manager — it lets you sna
 
 ## Features
 
+- **Window Switcher** — hold Mod+Tab to cycle through open windows across all Spaces
 - Snap windows to halves, quarters, and eighths of the screen
 - Center any window at a configurable size with a single shortcut
 - Configurable split ratios (left/right width, top/bottom height)
-- **Window Control** — maximize/restore, minimize, close windows via configurable hotkeys
-- **Window Switcher** — hold Mod+Tab to cycle through open windows across all Spaces
-- **App Layouts** — pin apps to specific Desktops and restore your workspace layout in one click (experimental)
+- **Window Control** — maximize/restore, minimize, close windows via hotkeys
+- **App Layouts** — pin apps to specific Desktops and restore your workspace in one click (experimental)
 - All hotkeys fully configurable in Settings
 - Menu bar app — lives quietly in the background
 - Launch at Login option in Settings
 
-## Shortcuts
+## Window Switcher
+
+<img src="assets/screenshot2.png" width="260"/>
+
+Hold your modifier key + Tab to open the switcher. Shows all open windows across all apps and all Spaces.
+
+| Shortcut | Action |
+|---|---|
+| Mod + Tab | Open switcher / next window |
+| ↑ / ↓ | Navigate the list |
+| Release Mod | Switch to selected window |
+| Escape | Cancel |
+
+- Each window shows the Desktop number it belongs to
+- If an app has multiple windows, each appears as a separate entry
+- Switching to a window on another Space moves you there automatically
+
+The Window Switcher can be enabled or disabled in Settings.
+
+## Snap Shortcuts
 
 Hold your chosen modifier key (Option, Command, or Control), then press arrow keys:
 
@@ -38,7 +57,7 @@ Hold your chosen modifier key (Option, Command, or Control), then press arrow ke
 | ⇧ + Mod + → + ↑ | Top right eighth |
 | ⇧ + Mod + → + ↓ | Bottom right eighth |
 
-### Window Control
+## Window Control
 
 Configurable hotkeys for window management (defaults shown):
 
@@ -48,26 +67,10 @@ Configurable hotkeys for window management (defaults shown):
 | Mod + D | Minimize all windows |
 | Mod + H | Minimize active window |
 | Mod + W | Close active window |
-| Mod + C | Center window |
 
 All keys can be changed in Settings. Window Control can be enabled or disabled independently.
 
-### Window Switcher
-
-<img src="assets/screenshot2.png" width="260"/>
-
-| Shortcut | Action |
-|---|---|
-| Mod + Tab | Open switcher / next window |
-| ↑ / ↓ | Navigate the list |
-| Release Mod | Switch to selected window |
-| Escape | Cancel |
-
-Shows all open windows across all apps and all Spaces. If an app has multiple windows open, each appears as a separate entry. Each window shows the Desktop number it belongs to. Switching to a window on another Space moves you there automatically.
-
-The Window Switcher can be enabled or disabled in Settings.
-
-### App Layouts (experimental)
+## App Layouts (experimental)
 
 Assign apps to specific Desktops and snap positions, then restore your entire workspace in one click — from the menu bar or from Settings.
 
@@ -89,7 +92,7 @@ Since the app is not notarized, macOS will block it on first launch. To open it:
 4. Scroll down and click **"Open Anyway"**
 5. Click **Open** in the confirmation dialog
 
-Alternatively, you can run this command in Terminal after copying the app to Applications:
+Alternatively, run this command in Terminal after copying the app to Applications:
 ```bash
 xattr -cr /Applications/windows.app
 ```
