@@ -23,7 +23,7 @@ final class WindowSwitcherPanel {
             p.backgroundColor = .clear
             p.hasShadow = false
             p.ignoresMouseEvents = false
-            p.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            p.collectionBehavior = [.transient, .fullScreenAuxiliary]
 
             let view = NSHostingView(rootView: WindowSwitcherView())
             view.wantsLayer = true
