@@ -6,15 +6,13 @@ struct windowsApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        Window("Windows Settings", id: "settings") {
-            ContentView()
-        }
-        .defaultSize(width: 420, height: 600)
+        Settings { EmptyView() }
     }
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
+    private var settingsWindow: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
@@ -24,13 +22,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         HotkeyManager.shared.start()
-
-        // Layout auto-apply on startup is disabled — use "Apply All" button manually.
-
-        // Hide the settings window immediately on launch
-        for window in NSApp.windows where window.title == "Windows Settings" {
-            window.orderOut(nil)
-        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -89,10 +80,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openSettings() {
-        NSApp.activate(ignoringOtherApps: true)
-        if let window = NSApp.windows.first(where: { $0.title == "Windows Settings" }) {
-            window.makeKeyAndOrderFront(nil)
+        if settingsWindow == nil {
+            let window = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 420, height: 600),
+                styleMask: [.titled, .closable, .miniaturizable, .resizable],
+                backing: .buffered,
+                defer: false
+            )
+            window.title = "Windows Settings"
+            window.contentView = NSHostingView(rootView: ContentView())
+            window.center()
+            window.isReleasedWhenClosed = false
+            settingsWindow = window
         }
+        NSApp.activate(ignoringOtherApps: true)
+        settingsWindow?.makeKeyAndOrderFront(nil)
     }
 
     @objc private func applyLayouts() {
