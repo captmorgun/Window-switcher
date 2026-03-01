@@ -27,11 +27,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Layout auto-apply on startup is disabled — use "Apply All" button manually.
 
-        // Hide the window after a short delay so the app stays running
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            for window in NSApp.windows where window.title == "Windows Settings" {
-                window.orderOut(nil)
-            }
+        // Hide the settings window immediately on launch
+        for window in NSApp.windows where window.title == "Windows Settings" {
+            window.orderOut(nil)
         }
     }
 
