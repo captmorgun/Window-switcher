@@ -11,28 +11,30 @@ final class WindowSwitcherPanel {
     func show() {
         WindowSwitcher.shared.show()
 
-        if panel == nil {
-            let p = NSPanel(
-                contentRect: .zero,
-                styleMask: [.borderless, .nonactivatingPanel],
-                backing: .buffered,
-                defer: false
-            )
-            p.level = .screenSaver
-            p.isOpaque = false
-            p.backgroundColor = .clear
-            p.hasShadow = false
-            p.ignoresMouseEvents = false
-            p.collectionBehavior = [.transient, .fullScreenAuxiliary]
+        // Destroy old panel if it exists to avoid stale windows floating between spaces
+        panel?.orderOut(nil)
+        panel = nil
 
-            let view = NSHostingView(rootView: WindowSwitcherView())
-            view.wantsLayer = true
-            view.layer?.backgroundColor = .clear
-            view.layer?.cornerRadius = 10
-            view.layer?.masksToBounds = true
-            p.contentView = view
-            panel = p
-        }
+        let p = NSPanel(
+            contentRect: .zero,
+            styleMask: [.borderless, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        p.level = .floating
+        p.isOpaque = false
+        p.backgroundColor = .clear
+        p.hasShadow = false
+        p.ignoresMouseEvents = false
+        p.collectionBehavior = [.transient, .fullScreenAuxiliary]
+
+        let view = NSHostingView(rootView: WindowSwitcherView())
+        view.wantsLayer = true
+        view.layer?.backgroundColor = .clear
+        view.layer?.cornerRadius = 10
+        view.layer?.masksToBounds = true
+        p.contentView = view
+        panel = p
 
         reposition()
         panel?.orderFrontRegardless()
@@ -40,6 +42,7 @@ final class WindowSwitcherPanel {
 
     func hide() {
         panel?.orderOut(nil)
+        panel = nil
     }
 
     private func reposition() {
